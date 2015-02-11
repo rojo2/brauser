@@ -15,4 +15,11 @@ Usage: generate [-h] [-t TITLE] [-o OUTFILE] [-p PATH]
   -h          display this help and exit
 ```
 
+Example:
+
+```
+./generate -p example
+```
+
+
 Made with ❤ by ROJO 2 (http://rojo2.com)
