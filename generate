@@ -48,43 +48,45 @@ while getopts "h?vo:p:t:" opt; do
   esac
 done
 
+out="$cwd/$output"
+
 shift $((OPTIND-1))
 
 function html_title {
-  echo "<h1>$1</h1>" >> $output
+  echo "<h1>$1</h1>" >> $out
 }
 
 function html_open_list {
-  echo "<ul>" >> $output
+  echo "<ul>" >> $out
 }
 
 function html_open_foldable_list {
   html_open_list
-  echo "<a href=\"#\"><i class=\"fa fa-folder-open\"></i>${1##*/}</a>" >> $output
+  echo "<a href=\"#\"><i class=\"fa fa-folder-open\"></i>${1##*/}</a>" >> $out
 }
 
 function html_close_list {
-  echo "</ul>" >> $output
+  echo "</ul>" >> $out
 }
 
 function html_open_item {
-  echo "<li>" >> $output
+  echo "<li>" >> $out
 }
 
 function html_close_item {
-  echo "</li>" >> $output 
+  echo "</li>" >> $out
 }
 
 function html_item_entry {
   html_open_item
-  echo "<a href=\"$1\" target=\"payload\"><i class=\"fa fa-file\"></i>$2</a>" >> $output
+  echo "<a href=\"$1\" target=\"payload\"><i class=\"fa fa-file\"></i>$2</a>" >> $out
   html_close_item
 }
 
 # This function reads a template and outputs it
 function html_template {
   template=`cat template/$1.html`
-  echo "$template" >> $output
+  echo "$template" >> $out
 }
 
 # This function generates the HTML header.
@@ -182,7 +184,7 @@ function html_entry {
 }
 
 # remove everythinug
-echo "" > $output
+echo "" > $out
 
 # generate HTML
 html_header
