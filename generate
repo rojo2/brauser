@@ -28,7 +28,7 @@ function show_help {
 # Reset in case getopts have been used previously
 OPTIND=1
 
-while getopts ":h?vopt:" opt; do
+while getopts "h?vo:p:t:" opt; do
   case "$opt" in
   h|\?)
     show_help
