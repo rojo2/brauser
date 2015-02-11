@@ -32,13 +32,13 @@ $(function() {
 
   $(window).on('keyup', function(e) {
     
-    if (e.which === 37 || e.which === 38) {
+    if (e.shiftKey && (e.which === 37 || e.which === 38)) {
       e.preventDefault();
       if (index > 0) {
         index--;
         show();
       }
-    } else if (e.which === 39 || e.which === 40) {
+    } else if (e.shiftKey && (e.which === 39 || e.which === 40)) {
       e.preventDefault();
       if (index < $links.length - 1) {
         index++;
