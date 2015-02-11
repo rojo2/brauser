@@ -1,0 +1,174 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+ * AWESOME
+ *
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
+  background: #121212;
+  color: #666666;
+  width: 100%;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', sans-serif; 
+}
+
+h1 {
+  font-size: 200%;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 180%;
+}
+
+h3 {
+  font-size: 160%;
+}
+
+h4 {
+  font-size: 140%;
+}
+
+h5 {
+  font-size: 120%;
+}
+
+h6 {
+  font-size: 110%;
+}
+
+ul {
+  list-style: none;
+}
+
+ul.invisible > li {
+  display: none;
+}
+
+ul > a {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+li {
+  margin-bottom: 0.5em;
+  padding: 0 1em;
+}
+
+a {
+  color: #666666;
+}
+
+ul > a:hover,li > a:hover {
+  color: #f40;
+}
+
+a {
+  text-decoration: none;
+}
+
+i {
+  margin-right: 0.5em;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  width: 1rem;
+  background-color: rgba(32,32,32,0.8);
+  transition: all .2s ease-in-out;
+}
+
+.sidebar:not(:hover) nav {
+  display: none;
+}
+
+.sidebar:hover {
+  width: 33%;
+  transition: all .1s ease-in-out;
+}
+
+.sidebar:hover nav {
+  display: block;
+}
+
+nav {
+  padding: 3rem;
+  overflow: hidden auto;
+}
+
+nav > ul:first-of-type > li {
+  padding: 0;
+}
+
+.payload {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+
+}
