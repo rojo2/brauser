@@ -4,6 +4,11 @@
 
 It uses the templates from _template_ to generate a _index.html_ file.
 
+## Shortcut Keys
+
+Shift + (Left arrow or up arrow): previous file
+Shift + (Right arrow or down arrow): next file
+
 ## Usage
 
 ```
@@ -20,6 +25,5 @@ Example:
 ```
 ./generate -p example
 ```
-
 
 Made with ❤ by ROJO 2 (http://rojo2.com)
