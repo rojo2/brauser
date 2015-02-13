@@ -24,8 +24,39 @@ $(function() {
   var $links = $('li > a'), 
       index = 0;
 
+  $links.on('click', function(e) {
+    
+    var $this = $(this);
+    for (var i = 0; i < $links.length; i++) {
+      var $link = $links.eq(i);
+      if ($link.attr('href') === $this.attr('href')) {
+        index = i;
+      }
+    }
+
+    location.hash = $this.attr('href');
+
+  });
+
+  $(window).on('hashchange', function(e) {
+    
+    var url = location.hash.substr(1);
+
+    var $result = $links.find('[href="' + url + '"]');
+    if ($result.length === 1) {
+      $iframe.attr('src', url);
+    }
+
+  }).trigger('hashchange');
+
   function show() {
-    $iframe.attr('src', $links.eq(index).attr('href'));
+    
+    var url = $links.eq(index).attr('href');
+    location.hash = url;
+
+    // ¡¿WTF?!
+    $iframe.attr('src', url);
+    
   }
 
   show();
