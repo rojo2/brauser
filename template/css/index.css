@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -12,8 +12,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
@@ -24,7 +24,7 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
@@ -66,7 +66,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto Slab', sans-serif; 
+  font-family: 'Roboto Slab', sans-serif;
 }
 
 h1 {
@@ -140,17 +140,20 @@ i {
   left: 0;
   height: 100%;
   overflow: hidden;
-  width: 1rem;
+  width: 20rem;
+  margin-left: -19rem;
   background-color: rgba(32,32,32,0.8);
   transition: all .2s ease-in-out;
 }
 
-.sidebar:not(:hover) nav {
-  display: none;
+.sidebar > .fa-angle-right{
+    position: absolute;
+    right: -0.2rem;
+    top: 50%;
 }
 
 .sidebar:hover {
-  width: 33%;
+  margin-left: 0rem;
   transition: all .1s ease-in-out;
 }
 
