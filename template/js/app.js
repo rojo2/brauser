@@ -24,6 +24,25 @@ $(function() {
   var $links = $('li > a'), 
       index = 0;
 
+  function load() {
+    var url = location.hash.substr(1);
+
+    var $result = $links.find('[href="' + url + '"]');
+    if ($result.length === 1) {
+      $iframe.attr('src', url);
+    }
+  }
+
+  function show() {
+    
+    var url = $links.eq(index).attr('href');
+    location.hash = url;
+
+    // ¡¿WTF?!
+    $iframe.attr('src', url);
+    
+  }
+
   $links.on('click', function(e) {
     
     var $this = $(this);
@@ -40,26 +59,9 @@ $(function() {
 
   $(window).on('hashchange', function(e) {
     
-    var url = location.hash.substr(1);
-
-    var $result = $links.find('[href="' + url + '"]');
-    if ($result.length === 1) {
-      $iframe.attr('src', url);
-    }
-
-  }).trigger('hashchange');
-
-  function show() {
+    load();
     
-    var url = $links.eq(index).attr('href');
-    location.hash = url;
-
-    // ¡¿WTF?!
-    $iframe.attr('src', url);
-    
-  }
-
-  show();
+  });
 
   $(window).on('keyup', function(e) {
     
@@ -93,4 +95,13 @@ $(function() {
     }
 
   });
+  
+  if (location.hash.length > 0) {
+    
+    load();
+
+  }
+
+  show();
+
 });
