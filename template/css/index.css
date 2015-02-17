@@ -124,6 +124,10 @@ a {
   text-decoration: none;
 }
 
+a.selected {
+  color: #f40;
+}
+
 i {
   margin-right: 0.5em;
 }

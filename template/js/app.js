@@ -1,15 +1,15 @@
 $(function() {
-  
+
   var $iframe = $('iframe');
   if (location.toString().substr(0,7) === 'file://') {
-    
+
     console.warn('CSS injection disabled');
 
   } else {
 
     var base = location.origin + location.pathname.replace('index.html','');
     $iframe.on('load', function(e){
-      
+
       var $this = $(this);
       var $head = $this.contents().find('head');
       $head.append($('<link/>',{
@@ -32,30 +32,32 @@ $(function() {
   }
 
   function show() {
-    var url = $links.eq(index).attr('href');
-    location.hash = url;
+    $links.eq(index).click();
   }
 
   $links.on('click', function(e) {
-    
+
     var $this = $(this);
+    $links.removeClass('selected');
     for (var i = 0; i < $links.length; i++) {
       var $link = $links.eq(i);
       if ($link.attr('href') === $this.attr('href')) {
         index = i;
+      } else {
       }
     }
 
+    $this.addClass('selected');
     location.hash = $this.attr('href');
 
   });
 
   $(window).on('hashchange', function(e) {
-    load();   
+    load();
   });
 
   $(window).on('keyup', function(e) {
-    
+
     if (e.shiftKey && (e.which === 37 || e.which === 38)) {
       e.preventDefault();
       if (index > 0) {
@@ -73,7 +75,7 @@ $(function() {
   });
 
   $('ul > a').on('click', function(e) {
-    
+
     e.preventDefault();
 
     var $this = $(this);
@@ -88,7 +90,7 @@ $(function() {
   });
 
   if (location.hash.length > 0) {
-    
+
     load();
 
   } else {
