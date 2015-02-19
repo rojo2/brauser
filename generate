@@ -2,55 +2,55 @@
 
 cwd=`pwd`
 output="index.html"
-index="Index"
+index="<span class='logo'>Index</span>"
 filter=*
 verbose=false
 copy=false
 
 # Mostramos un disclaimer
 function disclaimer {
-  printf "\e[1;31mMade with ❤ by ROJO 2 (http://rojo2.com)\e[0m"
+    printf "\e[1;31mMade with ❤ by ROJO 2 (http://rojo2.com)\e[0m"
 }
 
 # Show help
 function show_help {
-  echo "Usage: ${0##*/} [-h] [-t TITLE] [-o OUTFILE] [-i PATH]
-  
-  -p PATH     use PATH instead of the current working directory
-  -o OUTFILE  write result to OUTFILE instead of index.html
-  -t TITLE    change TITLE on the navigation bar
-  -c          copy template to input path
-  -h          display this help and exit
-  -v          verbose
-  "
-  disclaimer
-  exit 0
+    echo "Usage: ${0##*/} [-h] [-t TITLE] [-o OUTFILE] [-i PATH]
+
+    -p PATH     use PATH instead of the current working directory
+    -o OUTFILE  write result to OUTFILE instead of index.html
+    -t TITLE    change TITLE on the navigation bar
+    -c          copy template to input path
+    -h          display this help and exit
+    -v          verbose
+    "
+    disclaimer
+    exit 0
 }
 
 # Reset in case getopts have been used previously
 OPTIND=1
 
 while getopts "h?vco:p:t:" opt; do
-  case "$opt" in
-  h|\?)
-    show_help
-    ;;
-  c)
-    copy=true
-    ;;
-  v)
-    verbose=true
-    ;;
-  o)
-    output=$OPTARG
-    ;;
-  p)
-    cwd=$OPTARG
-    ;;
-  t)
-    index=$OPTARG
-    ;;
-  esac
+    case "$opt" in
+        h|\?)
+        show_help
+        ;;
+        c)
+        copy=true
+        ;;
+        v)
+        verbose=true
+        ;;
+        o)
+        output=$OPTARG
+        ;;
+        p)
+        cwd=$OPTARG
+        ;;
+        t)
+        index=$OPTARG
+        ;;
+    esac
 done
 
 out="$cwd/$output"
@@ -58,133 +58,133 @@ out="$cwd/$output"
 shift $((OPTIND-1))
 
 function html_title {
-  echo "<h1>$1</h1>" >> $out
+    echo "<h1>$1</h1>" >> $out
 }
 
 function html_open_list {
-  echo "<ul>" >> $out
+    echo "<ul class='open-list invisible'>" >> $out
 }
 
 function html_open_foldable_list {
-  html_open_list
-  echo "<a href=\"#\"><i class=\"fa fa-folder-open\"></i>${1##*/}</a>" >> $out
+    html_open_list
+    echo "<a href=\"#\" class='folder'><i class=\"fa fa-folder\"></i>${1##*/}</a>" >> $out
 }
 
 function html_close_list {
-  echo "</ul>" >> $out
+    echo "</ul>" >> $out
 }
 
 function html_open_item {
-  echo "<li>" >> $out
+    echo "<li>" >> $out
 }
 
 function html_close_item {
-  echo "</li>" >> $out
+    echo "</li>" >> $out
 }
 
 function html_item_entry {
-  html_open_item
-  echo "<a href=\"$1\" target=\"payload\"><i class=\"fa fa-file\"></i>$2</a>" >> $out
-  html_close_item
+    html_open_item
+    echo "<a href=\"$1\" target=\"payload\"><i class=\"fa fa-file\"></i>$2</a>" >> $out
+    html_close_item
 }
 
 # This function reads a template and outputs it
 function html_template {
-  template=`cat template/$1.html`
-  echo "$template" >> $out
+    template=`cat template/$1.html`
+    echo "$template" >> $out
 }
 
 # This function generates the HTML header.
 function html_header {
-  html_template "header"
+    html_template "header"
 }
 
 # This function generates the HTML footer
 function html_footer {
-  html_template "footer"
+    html_template "footer"
 }
 
 # This function generates the first html
 # entry.
 function html_first_entry {
 
-  local path=$1
-  local file
-  local basename
-  
-  if $verbose; then
-    echo "Root: $path"
-  fi
+    local path=$1
+    local file
+    local basename
 
-  html_title "$index"
-
-  html_open_list
-  for file in $path/$filter; do
-    
-    basename="${file##*/}"
-    if [ "$basename" = '*' ]; then
-      continue
+    if $verbose; then
+        echo "Root: $path"
     fi
 
-    if [[ -d $file ]]; then
-      if [ $basename != "node_modules" ] && 
-         [ $basename != "bower_components" ] && 
-         [ $basename != "template" ]; then
-        html_entry "$file"
-      else
-        if $verbose; then
-          echo "Ignoring: $basename"
+    html_title "$index"
+
+    html_open_list
+    for file in $path/$filter; do
+
+        basename="${file##*/}"
+        if [ "$basename" = '*' ]; then
+            continue
         fi
-      fi
-    else
-      if [ $basename != "generate" ] && 
-         [ $basename != "index.html" ]; then
-        html_item_entry "${file/$cwd\//}" "$basename"
-      fi
-    fi
 
-  done
-  html_close_list
+        if [[ -d $file ]]; then
+            if [ $basename != "node_modules" ] &&
+                [ $basename != "bower_components" ] &&
+                [ $basename != "template" ]; then
+                html_entry "$file"
+            else
+                if $verbose; then
+                    echo "Ignoring: $basename"
+                fi
+            fi
+        else
+            if [ $basename != "generate" ] &&
+                [ $basename != "index.html" ]; then
+                html_item_entry "${file/$cwd\//}" "$basename"
+            fi
+        fi
+
+    done
+    html_close_list
 
 }
 
-# This function generates the html code for 
+# This function generates the html code for
 # a path.
 function html_entry {
 
-  local path=$1
-  local file
-  local basename
+    local path=$1
+    local file
+    local basename
 
-  if $verbose; then
-    echo "Adding: $path"
-  fi
-
-  html_open_foldable_list $path
-  for file in $path/$filter; do
-    
-    basename="${file##*/}"
-    if [ "$basename" = '*' ]; then
-      continue
+    if $verbose; then
+        echo "Adding: $path"
     fi
-    
-    if [[ -d $file ]]; then
-      if [ $basename != "node_modules" ] && 
-         [ $basename != "bower_components" ]; then
-        html_open_item
-        html_entry "$file"
-        html_close_item
-      else
-        if $verbose; then
-          echo "Ignoring: $basename"
+
+    html_open_foldable_list $path
+    for file in $path/$filter; do
+
+        basename="${file##*/}"
+        if [ "$basename" = '*' ]; then
+            continue
         fi
-      fi
-    else
-      html_item_entry "${file/$cwd\//}" "$basename"
-    fi
 
-  done
-  html_close_list
+        if [[ -d $file ]]; then
+            if [ $basename != "node_modules" ] &&
+                [ $basename != "bower_components" ]; then
+                html_open_item
+                html_entry "$file"
+                html_close_item
+            else
+                if $verbose; then
+                    echo "Ignoring: $basename"
+                fi
+            fi
+        else
+            html_item_entry "${file/$cwd\//}" "$basename"
+        fi
+
+    done
+    html_close_list
 
 }
 
@@ -198,7 +198,7 @@ html_footer
 
 # copy the template to the destination
 if $copy && [ $cwd != `pwd` ]; then
-  cp -R template/ $cwd
+    cp -R template/ $cwd
 fi
 
 disclaimer
