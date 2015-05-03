@@ -89,6 +89,30 @@ $(function() {
 
   });
 
+  // collapsing sidebar
+  $('.trigger-aside').on('click', function(e) {
+
+    e.preventDefault();
+
+    var   $this     = $(this),
+    $body     = $('body'),
+    $sidebar  = $('.sidebar');
+
+    $body.toggleClass('sidebar-collapsed');
+    if ($body.hasClass('sidebar-collapsed')) {
+      $('.sidebar').css("pointer-events", "none");
+      setTimeout(function() {
+        $('.sidebar').css("pointer-events", "auto");
+      }, 200);
+    } else {
+      $this.find('i').removeClass('fa-folder').addClass('fa-folder-open');
+    }
+  });
+
+
+  // Starting only with the first level folder opened
+  $('nav > .open-list > .open-list').removeClass('invisible').click();
+
   if (location.hash.length > 0) {
 
     load();

@@ -28,15 +28,19 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
@@ -60,9 +64,10 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-size: 100%;
   background: #121212;
-  color: #666666;
+  color: #999999;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -104,27 +109,21 @@ ul.invisible > li {
 
 ul > a {
   display: block;
-  margin-bottom: 0.5em;
 }
 
 li {
-  margin-bottom: 0.5em;
-  padding: 0 1em;
+  padding: 0.3rem 1.3em;
+}
+li:last-child {
+  margin-bottom: 0;
 }
 
 a {
-  color: #666666;
-}
-
-ul > a:hover,li > a:hover {
-  color: #f40;
-}
-
-a {
+  color: #999999;
   text-decoration: none;
 }
 
-a.selected {
+ul > a:hover,li > a:hover {
   color: #f40;
 }
 
@@ -135,7 +134,7 @@ i {
 .container {
   width: 100%;
   height: 100%;
-  padding: 0rem 0rem 0rem 2rem;
+  padding: 0rem 0rem 0rem 1.5rem;
   overflow: hidden;
 }
 
@@ -145,16 +144,56 @@ i {
   left: 0;
   height: 100%;
   overflow: hidden;
-  width: 20rem;
-  margin-left: -19rem;
-  background-color: rgba(32,32,32,0.8);
+  width: 24rem;
+  background-color: rgba(0,0,0,0.95);
   transition: all .2s ease-in-out;
+  font-size: 0.9rem;
+}
+.sidebar-collapsed .sidebar {
+  margin-left: -22.5rem;
+}
+.trigger-aside {
+  display: inline-block;
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  color: #666;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+body {
+  transition: padding-left 0.1s;
+  padding-left: 22.5rem;
+}
+body.sidebar-collapsed {
+  padding-left: 0;
 }
 
+.trigger-aside .fa-caret-square-o-right {
+  display: none;
+}
+.sidebar-collapsed .trigger-aside .fa-caret-square-o-right {
+  display: block;
+}
+.sidebar-collapsed .trigger-aside .fa-caret-square-o-left {
+  display: none;
+}
+
+
 .sidebar > .fa-angle-right{
-    position: absolute;
-    right: -0.2rem;
-    top: 50%;
+  position: absolute;
+  right: -0rem;
+  top: 50%;
+}
+
+.sidebar > .open-list{
+  position: absolute;
+  right: -0rem;
+  top: 50%;
+}
+
+.open-list.invisible {
+  min-height: 18px;
 }
 
 .sidebar:hover {
@@ -167,17 +206,34 @@ i {
 }
 
 nav {
-  padding: 3rem;
+  padding: 1rem;
   overflow: hidden auto;
+  height: 100%;
 }
 
 nav > ul:first-of-type > li {
   padding: 0;
 }
 
+.open-list {
+  padding: 10px 0;
+  height: 100%;
+  overflow: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.open-list .open-list {
+  padding: 0;
+  height: auto;
+  border-top: none;
+}
+
 .payload {
   width: 100%;
   height: 100%;
   color: #fff;
+}
 
+.logo,
+.folder {
+  color: #666;
 }
