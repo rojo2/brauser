@@ -237,3 +237,7 @@ nav > ul:first-of-type > li {
 .folder {
   color: #666;
 }
+
+.selected {
+  color: #f40;
+}
