@@ -1,7 +1,7 @@
 {% extends "base.jinja" %}
 
 {% macro element(obj) -%}
-  <a href="{{obj.id}}{{obj.url}}" target="payload">
+  <a href="{{obj.url}}" target="payload">
   <i class="fa fa-file"></i>{{obj.name}}</a>
 {%- endmacro %}
 
@@ -13,7 +13,7 @@
     {% endif %}
 
     {% for item in obj.children %}
-      <li id="{{obj.id}}">
+      <li>
         {% if item.is_folder %}
           {{ folder(item, True) }}
         {% else %}

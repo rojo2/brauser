@@ -6,10 +6,8 @@ $(function() {
   var $folders = $('ul > a');
 
   function load() {
-    var id = location.hash.substr(1, 6);
-    var url = location.hash.substr(7);
-    var $selected_element = $('#'+id);
-    var $result = $('a[href="' + id + url + '"]');
+    var url = location.hash.substr(1);
+    var $result = $('a[href="' + url + '"]');
 
     if ($result.length === 1) {
       $iframe.attr('src', url);
