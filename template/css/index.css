@@ -127,6 +127,10 @@ ul > a:hover,li > a:hover {
   color: #f40;
 }
 
+li > a.active {
+  color: #a40;
+}
+
 i {
   margin-right: 0.5em;
 }

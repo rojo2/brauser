@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+import os
+import base64
+import hashlib
+import shutil
+import click
+from jinja2 import Environment, FileSystemLoader
+
+
+@click.command()
+@click.option('--path', '-p', default=".", help='Use PATH instead of the current working directory.', type=click.Path(exists=True))
+@click.option('--outfile', '-o', default="index.html", help='Write result to PATH instead of index.html.', type=click.Path())
+@click.option('--title', '-t', default="Prauser", help='Use TEXT as title on the navigation bar.')
+@click.option('--copy', '-c', help='Copy template to input path.', is_flag=True)
+@click.option('--verbose', '-v', default=False, help='Enable verbose mode.', is_flag=True)
+def cli(path, outfile, title, verbose, copy):
+    items_root = get_items(path)
+
+    BASE_DIR = os.path.dirname(__file__)
+
+    env = Environment(loader=FileSystemLoader(os.path.join(BASE_DIR, 'template')))
+    template = env.get_template('index.jinja')
+
+    with open(outfile, "w") as out:
+        out.write(template.render(root=items_root, title=title))
+
+    if copy:
+        shutil.copytree(os.path.join(BASE_DIR, "template"), os.path.join(os.path.dirname(outfile), "template"))
+
+
+def get_items(path):
+    root_item = {"is_folder": True, "name": "Root", "children": []}
+    folders = {}
+
+    for root, dirs, files in os.walk(path):
+        if root == path:
+            current_item = root_item
+        else:
+            current_item = folders[root]
+
+        for item in sorted(dirs):
+            url = os.path.join(root, item)
+            folder_item = {
+                "id": hashlib.sha1(url.encode('utf-8')).hexdigest()[:6],
+                "is_folder": True,
+                "name": item,
+                "url": url,
+                "children": []
+            }
+            current_item["children"].append(folder_item)
+            folders[os.path.join(root, item)] = folder_item
+
+        for item in sorted(files):
+            url = os.path.join(root, item)
+            current_item["children"].append({
+                "id": hashlib.sha1(url.encode('utf-8')).hexdigest()[:6],
+                "is_folder": False,
+                "name": item,
+                "url": url
+            })
+
+    return root_item
+
+
+if __name__ == '__main__':
+    cli()

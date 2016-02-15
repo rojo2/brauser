@@ -12,20 +12,21 @@ Shift + (Right arrow or down arrow): next file
 ## Usage
 
 ```
-Usage: generate [-cvh] [-t TITLE] [-o OUTFILE] [-p PATH]
+Usage: prauser [OPTIONS]
 
-  -p PATH     use PATH instead of the current working directory
-  -o OUTFILE  write result to OUTFILE instead of index.html
-  -t TITLE    change TITLE on the navigation bar
-  -c          copy template/ to PATH
-  -v          verbose
-  -h          display this help and exit
+Options:
+  -p, --path PATH     Use PATH instead of the current working directory.
+  -o, --outfile PATH  Write result to PATH instead of index.html.
+  -t, --title TEXT    Use TEXT as title on the navigation bar.
+  -c, --copy          Copy template to input path.
+  -v, --verbose       Enable verbose mode.
+  --help              Show this message and exit.
 ```
 
 Example:
 
 ```
-./generate -p example
+./prauser -p example
 ```
 
-Made with ❤ by ROJO 2 (http://rojo2.com)
+Made with ❤ by ROJO 2 (http://rojo2.com) and Kaleidos (http://kaleidos.net)

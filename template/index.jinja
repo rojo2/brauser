@@ -1,0 +1,32 @@
+{% extends "base.jinja" %}
+
+{% macro element(obj) -%}
+  <a href="{{obj.id}}{{obj.url}}" target="payload">
+  <i class="fa fa-file"></i>{{obj.name}}</a>
+{%- endmacro %}
+
+{% macro folder(obj, show) -%}
+  <ul class='open-list invisible'>
+    {% if show %}
+      <a href="#" class='folder'>
+      <i class="fa fa-folder"></i>{{obj.name}}</a>
+    {% endif %}
+
+    {% for item in obj.children %}
+      <li id="{{obj.id}}">
+        {% if item.is_folder %}
+          {{ folder(item, True) }}
+        {% else %}
+          {{ element(item) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{%- endmacro %}
+
+{% block navigation %}
+  <h1>{{ title }}</h1>
+  <ul class='open-list invisible'>
+    {{ folder(root, False) }}
+  </ul>
+{% endblock %}
