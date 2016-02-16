@@ -1,0 +1,247 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+ * AWESOME
+ *
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
+  background: #dddddd;
+  color: #666666;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', sans-serif;
+}
+
+h1 {
+  font-size: 200%;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 180%;
+}
+
+h3 {
+  font-size: 160%;
+}
+
+h4 {
+  font-size: 140%;
+}
+
+h5 {
+  font-size: 120%;
+}
+
+h6 {
+  font-size: 110%;
+}
+
+ul {
+  list-style: none;
+}
+
+ul.invisible > li {
+  display: none;
+}
+
+ul > a {
+  display: block;
+}
+
+li {
+  padding: 0.3rem 1.3em;
+}
+li:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: #666666;
+  text-decoration: none;
+}
+
+ul > a:hover,li > a:hover {
+  color: #a40;
+}
+
+li > a.active {
+  color: #740;
+}
+
+i {
+  margin-right: 0.5em;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 0rem 0rem 0rem 1.5rem;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  width: 24rem;
+  background-color: rgba(255,255,255,0.95);
+  transition: all .2s ease-in-out;
+  font-size: 0.9rem;
+}
+.sidebar-collapsed .sidebar {
+  margin-left: -22.5rem;
+}
+.trigger-aside {
+  display: inline-block;
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  color: #333;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+body {
+  transition: padding-left 0.1s;
+  padding-left: 22.5rem;
+}
+body.sidebar-collapsed {
+  padding-left: 0;
+}
+
+.trigger-aside .fa-caret-square-o-right {
+  display: none;
+}
+.sidebar-collapsed .trigger-aside .fa-caret-square-o-right {
+  display: block;
+}
+.sidebar-collapsed .trigger-aside .fa-caret-square-o-left {
+  display: none;
+}
+
+
+.sidebar > .fa-angle-right{
+  position: absolute;
+  right: -0rem;
+  top: 50%;
+}
+
+.sidebar > .open-list{
+  position: absolute;
+  right: -0rem;
+  top: 50%;
+}
+
+.open-list.invisible {
+  min-height: 18px;
+}
+
+.sidebar:hover {
+  margin-left: 0rem;
+  transition: all .1s ease-in-out;
+}
+
+.sidebar:hover nav {
+  display: block;
+}
+
+nav {
+  padding: 1rem;
+  overflow: hidden auto;
+  height: 100%;
+}
+
+nav > ul:first-of-type > li {
+  padding: 0;
+}
+
+.open-list {
+  padding: 10px 0;
+  height: 100%;
+  overflow: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.open-list .open-list {
+  padding: 0;
+  height: auto;
+  border-top: none;
+}
+
+.payload {
+  width: 100%;
+  height: 100%;
+  color: #000;
+}
+
+.logo,
+.folder {
+  color: #333;
+}
+
+.selected {
+  color: #a40;
+}

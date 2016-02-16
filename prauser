@@ -4,6 +4,17 @@ import os
 import shutil
 import click
 from jinja2 import Environment, FileSystemLoader
+from jinja2.ext import Extension
+
+class RawExtension(Extension):
+    options = {}
+    file_extensions = ['.css', '.js', 'svg']
+
+    def preprocess(self, source, name, filename=None):
+        if (not name or
+           (name and not os.path.splitext(name)[1] in self.file_extensions)):
+            return source
+        return "{% raw %}"+source+"{% endraw %}"
 
 
 @click.command()
@@ -21,18 +32,30 @@ from jinja2 import Environment, FileSystemLoader
               help='Embed css and js code in the generated html.', is_flag=True)
 @click.option('--cdn', default=False,
               help='Use cdn for third party resources.', is_flag=True)
+@click.option('--template', default="default",
+              help='Select one template')
 @click.option('--verbose', '-v', default=False,
               help='Enable verbose mode.', is_flag=True)
-def cli(path, outfile, title, copy, embed, cdn, verbose):
+def cli(path, outfile, title, copy, embed, cdn, template, verbose):
     items_root = get_items(path)
 
     BASE_DIR = os.path.dirname(__file__)
 
-    env = Environment(loader=FileSystemLoader(os.path.join(BASE_DIR, 'template')))
-    template = env.get_template('index.jinja')
+    env = Environment(
+        loader=FileSystemLoader(os.path.join(BASE_DIR, 'templates', template)),
+        extensions=["pyjade.ext.jinja.PyJadeExtension", RawExtension],
+    )
+    try:
+        tpl = env.get_template('index.jinja')
+    except Exception:
+        try:
+            tpl = env.get_template('index.jade')
+        except Exception:
+            click.echo("Template not found", err=True)
+            return
 
     with open(outfile, "w") as out:
-        out.write(template.render(
+        out.write(tpl.render(
             root=items_root,
             title=title,
             embed=embed,
@@ -40,7 +63,7 @@ def cli(path, outfile, title, copy, embed, cdn, verbose):
         ))
 
     if copy:
-        shutil.copytree(os.path.join(BASE_DIR, "template"), os.path.join(os.path.dirname(outfile), "template"))
+        shutil.copytree(os.path.join(BASE_DIR, "templates", template), os.path.join(os.path.dirname(outfile), "template"))
 
 
 def get_items(path):

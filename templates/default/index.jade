@@ -1,0 +1,23 @@
+extends base.jade
+
+mixin element(obj)
+  a(href=obj.url target="payload")
+    i.fa.fa-file= obj.name
+
+mixin folder(obj, show)
+  ul.open-list.invisible
+    if show
+      a.folder(href="#")
+        i.fa.fa-folder= obj.name
+
+    for item in obj.children
+      li
+        if item.is_folder
+          +folder(item, True)
+        else
+          +element(item)
+
+block navigation
+  h1= title
+  ul.open-list.invisible
+    +folder(root, False)

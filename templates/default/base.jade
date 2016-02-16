@@ -1,0 +1,33 @@
+!!!html
+html
+  head
+    meta(charset="utf-8")
+    title= title
+    link(href="http://fonts.googleapis.com/css?family=Roboto+Slab:400,300|Roboto:400,300", rel="stylesheet", type="text/css")
+
+    if cdn
+      link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+      script(src="https://code.jquery.com/jquery-2.2.0.js")
+    else
+      link(href="template/css/font-awesome.css", rel="stylesheet", type="text/css")
+      script(src="template/js/jquery.js")
+
+    if embed
+      script
+        include js/app.js
+      style
+        include css/index.css
+    else
+      script(src="template/js/app.js")
+      link(href="template/css/index.css", rel="stylesheet", type="text/css")
+
+  body.sidebar-collapsed
+    div.container
+      div.sidebar
+        div.trigger-aside
+          span.fa.fa-caret-square-o-right
+          span.fa.fa-caret-square-o-left
+        i.fa.fa-angle-right
+        nav
+          block navigation
+      iframe.payload(name="payload")
