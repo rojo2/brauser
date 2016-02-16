@@ -99,11 +99,13 @@ $(function() {
 
     $body.toggleClass('sidebar-collapsed');
     if ($body.hasClass('sidebar-collapsed')) {
+      localStorage.setItem("sidebarCollapsed", "true");
       $('.sidebar').css("pointer-events", "none");
       setTimeout(function() {
         $('.sidebar').css("pointer-events", "auto");
       }, 200);
     } else {
+      localStorage.setItem("sidebarCollapsed", "false");
       $this.find('i').removeClass('fa-folder').addClass('fa-folder-open');
     }
   });
@@ -120,6 +122,12 @@ $(function() {
 
     show();
 
+  }
+
+  if (localStorage.getItem("sidebarCollapsed") === "true") {
+    $('body').addClass('sidebar-collapsed');
+  } else {
+    $('body').removeClass('sidebar-collapsed');
   }
 
 });
