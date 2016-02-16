@@ -17,9 +17,13 @@ from jinja2 import Environment, FileSystemLoader
               help='Use TEXT as title on the navigation bar.')
 @click.option('--copy', '-c',
               help='Copy template to input path.', is_flag=True)
+@click.option('--embed', '-e', default=False,
+              help='Embed css and js code in the generated html.', is_flag=True)
+@click.option('--cdn', default=False,
+              help='Use cdn for third party resources.', is_flag=True)
 @click.option('--verbose', '-v', default=False,
               help='Enable verbose mode.', is_flag=True)
-def cli(path, outfile, title, verbose, copy):
+def cli(path, outfile, title, copy, embed, cdn, verbose):
     items_root = get_items(path)
 
     BASE_DIR = os.path.dirname(__file__)
@@ -28,7 +32,12 @@ def cli(path, outfile, title, verbose, copy):
     template = env.get_template('index.jinja')
 
     with open(outfile, "w") as out:
-        out.write(template.render(root=items_root, title=title))
+        out.write(template.render(
+            root=items_root,
+            title=title,
+            embed=embed,
+            cdn=cdn
+        ))
 
     if copy:
         shutil.copytree(os.path.join(BASE_DIR, "template"), os.path.join(os.path.dirname(outfile), "template"))
