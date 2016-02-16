@@ -28,6 +28,11 @@ $(function() {
     var $result = $('a[href="' + url + '"]');
     if ($result.length === 1) {
       $iframe.attr('src', url);
+      $result.parents('ul').removeClass('invisible');
+      $result.parents('ul').find('i.fa-folder').removeClass('fa-folder').addClass('fa-folder-open');
+      $links.removeClass('active');
+      $links.removeClass('selected');
+      $this.addClass('selected');
     }
   }
 
@@ -36,20 +41,14 @@ $(function() {
   }
 
   $links.on('click', function(e) {
-
     var $this = $(this);
-    $links.removeClass('selected');
     for (var i = 0; i < $links.length; i++) {
       var $link = $links.eq(i);
       if ($link.attr('href') === $this.attr('href')) {
         index = i;
-      } else {
       }
     }
-
-    $this.addClass('selected');
     location.hash = $this.attr('href');
-
   });
 
   $(window).on('hashchange', function(e) {
