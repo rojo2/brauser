@@ -1,33 +1,20 @@
 $(function() {
-
+  var index = 0;
+  var $body = $('body');
+  var $links = $('li > a');
   var $iframe = $('iframe');
-  if (location.toString().substr(0,7) === 'file://') {
+  var $folders = $('ul > a');
 
-    console.warn('CSS injection disabled');
-
-  } else {
-
-    var base = location.origin + location.pathname.replace('index.html','');
-    $iframe.on('load', function(e){
-
-      var $this = $(this);
-      var $head = $this.contents().find('head');
-      $head.append($('<link/>',{
-        rel: 'stylesheet',
-        href: base + 'template/css/iframe.css',
-        type: 'text/css'
-      }));
-
-    });
-
-  }
-
-  var $links = $('li > a'), index = 0;
   function load() {
     var url = location.hash.substr(1);
     var $result = $('a[href="' + url + '"]');
+
     if ($result.length === 1) {
       $iframe.attr('src', url);
+      $result.parents('ul').removeClass('invisible');
+      $result.parents('ul').find('i.fa-folder').removeClass('fa-folder').addClass('fa-folder-open');
+      $links.removeClass('active');
+      $result.addClass('active');
     }
   }
 
@@ -35,8 +22,22 @@ $(function() {
     $links.eq(index).click();
   }
 
-  $links.on('click', function(e) {
+  if (location.toString().substr(0,7) === 'file://') {
+    console.warn('CSS injection disabled');
+  } else {
+    var base = location.origin + location.pathname.replace('index.html','');
+    $iframe.on('load', function(e){
+      var $this = $(this);
+      var $head = $this.contents().find('head');
+      $head.append($('<link/>',{
+        rel: 'stylesheet',
+        href: base + 'template/css/iframe.css',
+        type: 'text/css'
+      }));
+    });
+  }
 
+  $links.on('click', function(e) {
     var $this = $(this);
     $links.removeClass('selected');
     for (var i = 0; i < $links.length; i++) {
@@ -46,10 +47,8 @@ $(function() {
       } else {
       }
     }
-
     $this.addClass('selected');
     location.hash = $this.attr('href');
-
   });
 
   $(window).on('hashchange', function(e) {
@@ -57,7 +56,6 @@ $(function() {
   });
 
   $(window).on('keyup', function(e) {
-
     if (e.shiftKey && (e.which === 37 || e.which === 38)) {
       e.preventDefault();
       if (index > 0) {
@@ -74,8 +72,7 @@ $(function() {
 
   });
 
-  $('ul > a').on('click', function(e) {
-
+  $folders.on('click', function(e) {
     e.preventDefault();
 
     var $this = $(this);
@@ -86,41 +83,36 @@ $(function() {
     } else {
       $this.find('i').removeClass('fa-folder').addClass('fa-folder-open');
     }
-
   });
 
   // collapsing sidebar
   $('.trigger-aside').on('click', function(e) {
-
     e.preventDefault();
 
     var   $this     = $(this),
-    $body     = $('body'),
     $sidebar  = $('.sidebar');
 
     $body.toggleClass('sidebar-collapsed');
     if ($body.hasClass('sidebar-collapsed')) {
+      localStorage.setItem("sidebarCollapsed", "true");
       $('.sidebar').css("pointer-events", "none");
       setTimeout(function() {
         $('.sidebar').css("pointer-events", "auto");
       }, 200);
     } else {
+      localStorage.setItem("sidebarCollapsed", "false");
       $this.find('i').removeClass('fa-folder').addClass('fa-folder-open');
     }
   });
 
-
   // Starting only with the first level folder opened
   $('nav > .open-list > .open-list').removeClass('invisible').click();
 
-  if (location.hash.length > 0) {
+  if (location.hash.length > 0) { load(); } else { show(); }
 
-    load();
-
+  if (localStorage.getItem("sidebarCollapsed") === "true") {
+    $body.addClass('sidebar-collapsed');
   } else {
-
-    show();
-
+    $body.removeClass('sidebar-collapsed');
   }
-
 });
