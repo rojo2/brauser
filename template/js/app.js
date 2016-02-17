@@ -32,7 +32,7 @@ $(function() {
       $result.parents('ul').find('i.fa-folder').removeClass('fa-folder').addClass('fa-folder-open');
       $links.removeClass('active');
       $links.removeClass('selected');
-      $this.addClass('selected');
+      $result.addClass('selected');
     }
   }
 
