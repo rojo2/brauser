@@ -197,7 +197,7 @@ html_first_entry $cwd
 html_footer
 
 # copy the template to the destination
-if $copy && [ $cwd != `pwd` ]; then
+if $copy && [[ $cwd != `pwd` ]]; then
     cp -R template/ $cwd
 fi
 
