@@ -122,14 +122,14 @@ function html_first_entry {
     for file in $path/$filter; do
 
         basename="${file##*/}"
-        if [ "$basename" = '*' ]; then
+        if [[ "$basename" = '*' ]]; then
             continue
         fi
 
         if [[ -d $file ]]; then
-            if [ $basename != "node_modules" ] &&
-                [ $basename != "bower_components" ] &&
-                [ $basename != "template" ]; then
+            if [[ $basename != "node_modules" ]] &&
+               [[ $basename != "bower_components" ]] &&
+               [[ $basename != "template" ]]; then
                 html_entry "$file"
             else
                 if $verbose; then
@@ -137,8 +137,8 @@ function html_first_entry {
                 fi
             fi
         else
-            if [ $basename != "generate" ] &&
-                [ $basename != "index.html" ]; then
+            if [[ $basename != "generate" ]] &&
+               [[ $basename != "index.html" ]]; then
                 html_item_entry "${file/$cwd\//}" "$basename"
             fi
         fi
@@ -164,13 +164,13 @@ function html_entry {
     for file in $path/$filter; do
 
         basename="${file##*/}"
-        if [ "$basename" = '*' ]; then
+        if [[ "$basename" = '*' ]]; then
             continue
         fi
 
         if [[ -d $file ]]; then
-            if [ $basename != "node_modules" ] &&
-                [ $basename != "bower_components" ]; then
+            if [[ $basename != "node_modules" ]] &&
+               [[ $basename != "bower_components" ]]; then
                 html_open_item
                 html_entry "$file"
                 html_close_item
